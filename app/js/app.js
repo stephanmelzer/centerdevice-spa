@@ -7,10 +7,10 @@ myModule.config(function($routeProvider, $locationProvider) {
 	//$locationProvider.html5Mode(true);
 
 	$routeProvider.
-	when("/", {
-		templateUrl: 'partials/index.html',
-		controller: 'MainController'
-	}).
+	// when("/", {
+	// 	templateUrl: 'partials/index.html',
+	// 	controller: 'MainController'
+	// }).
 	when("/welcome", {
 		templateUrl: 'partials/welcome.html',
 		//string of controller: registered controller
@@ -25,6 +25,10 @@ myModule.config(function($routeProvider, $locationProvider) {
 	when("/documents", {
 		templateUrl: 'partials/documents.html',
 		controller: 'DocumentController'
+	}).
+	when("/blub", {
+		templateUrl: 'partials/welcome.html',
+		controller: 'loginCtrl'
 	}).
 	otherwise({
 		redirectTo: '/'

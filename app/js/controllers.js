@@ -2,9 +2,16 @@
 
 /* Controllers */
 
-function MainController($scope) {
+function MainController($rootScope, $location) {
     //... determined if logged in...
     //$scope.loggedin = true;
+    // $rootScope.change = function() {
+    //     $rootScope.$apply($location.path());
+    //     alert('main: ' + $location.path());
+    // }
+}
+
+function loginCtrl ($location){
 }
 
 function WelcomeController($scope) {
@@ -20,7 +27,12 @@ function LogoutController($http, $location) {
 }
 
 function DocumentController($scope, $http) {
-    $http.get('http://roca.local:8080/centerdevice-roca/documents').
+    // $http.get('http://roca.local:8080/centerdevice-roca/documents').
+    // success(function(data, status, headers, config) {
+    //     $scope.documents = data.documents;
+    // });
+
+    $http({withCredentials: true, method: 'GET', url: 'http://roca.local:8080/centerdevice-roca/documents'}).
     success(function(data, status, headers, config) {
         $scope.documents = data.documents;
     });

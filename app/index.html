@@ -7,11 +7,32 @@
 </head>
 <body>
 
-  <input type="checkbox" ng-model="loggedin">
+<!--   <input type="checkbox" ng-model="loggedin" ng-change="change()">
   <div ng-switch on="loggedin" >
     <div ng-switch-when="true" ng-include="'partials/index.html'"></div>
     <div ng-switch-when="false" ng-include="'partials/welcome.html'" ng-controller="WelcomeController"></div>
     <div ng-switch-default ng-include="'partials/welcome.html'" ng-controller="WelcomeController"></div>
+  </div> -->
+
+<div class="banner"></div >
+
+  <header>
+    <h1>
+      centerdevice - structure without directories
+      <img src="img/cd_logo.png" alt="centerdevice Logo">
+    </h1>
+
+    <form class="form-search">
+      <input type="search"
+      class="input-xlarge search-query"
+      placeholder="Enter search query"
+      autofocus>
+      <button type="submit" class="btn btn-inverse">Search</button>
+    </form>
+  </header>
+
+  <div class="main" role="main">
+    <div ng-view></div>
   </div>
 
   <script src="lib/angular/angular.js"></script>
