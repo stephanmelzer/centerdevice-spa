@@ -1,6 +1,6 @@
 'use strict';
 
-var myModule = angular.module('centerdevicePrototype', []);
+var myModule = angular.module('centerdevice', ['centerdevice.filters']);
 
 //is array before function for preventing name loss if file is minimized?
 myModule.config(function($routeProvider, $locationProvider) {

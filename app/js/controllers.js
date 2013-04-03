@@ -7,15 +7,14 @@ function WelcomeController($scope) {
     $scope.redirectUrl = encodeURI(window.location.protocol + "//" + window.location.host + window.location.pathname);
 }
 
-function LogoutController($http, $location) {
+function LogoutController($http, $scope) {
     $http({
         withCredentials: true,
         method: 'GET',
         url: 'http://roca.local:8080/centerdevice-roca/logout'
     }).
     success(function(data, status, headers, config) {
-        var welcomeUrl = window.location.protocol + "//" + window.location.host + "/app/welcome.html";
-        window.location.href = welcomeUrl;
+        $scope.$broadcast('event:loginRequired');
     });
 }
 
