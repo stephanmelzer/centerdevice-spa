@@ -1,2 +1,1 @@
-centerdevice-spa
-================
+# CenterDevice SPA prototype
