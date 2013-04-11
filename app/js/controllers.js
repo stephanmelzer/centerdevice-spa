@@ -1,7 +1,5 @@
 'use strict';
 
-/* Controllers */
-
 function WelcomeController($scope) {
     //location.origin does not work in Firefox
     $scope.redirectUrl = encodeURI(window.location.protocol + "//" + window.location.host + window.location.pathname);
@@ -18,13 +16,28 @@ function LogoutController($http, $scope) {
     });
 }
 
-function DocumentController($scope, $http) {
+function DocumentController($scope, $http, $location) {
+    var searchQuery = $location.search();
+
     $http({
         withCredentials: true,
         method: 'GET',
-        url: 'http://roca.local:8080/centerdevice-roca/documents'
+        url: 'http://roca.local:8080/centerdevice-roca/documents',
+        params: searchQuery
     }).
     success(function(data, status, headers, config) {
         $scope.documents = data.documents;
     });
+}
+
+function SearchCtrl($scope, $location) {
+    $scope.search = function() {
+        var searchQuery = {
+            q: $scope.keywords
+        }
+
+        if ($scope.keywords != undefined) {
+            $location.search(searchQuery);
+        }
+    };
 }

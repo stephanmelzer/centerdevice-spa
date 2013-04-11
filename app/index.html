@@ -15,12 +15,13 @@
         <img src="img/cd_logo.png" alt="centerdevice Logo">
       </h1>
 
-      <form class="form-search">
+      <form class="form-search" ng-controller="SearchCtrl">
         <input type="search"
         class="input-xlarge search-query"
         placeholder="Enter search query"
-        autofocus>
-        <button type="submit" class="btn btn-inverse">Search</button>
+        autofocus
+        ng-model="keywords">
+        <button type="submit" class="btn btn-inverse" ng-click="search()">Search</button>
       </form>
     </header>
 
