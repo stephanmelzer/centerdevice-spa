@@ -1,8 +1,7 @@
 'use strict';
 
-var myModule = angular.module('centerdevice', ['centerdevice.filters']);
+var myModule = angular.module('centerdevice', ['documents']);
 
-//is array before function for preventing name loss if file is minimized?
 myModule.config(function($routeProvider, $locationProvider) {
 	//$locationProvider.html5Mode(true);
 
@@ -11,12 +10,12 @@ myModule.config(function($routeProvider, $locationProvider) {
 		redirectTo: '/documents'
 	}).
 	when("/logout", {
-		templateUrl: 'partials/documents.html',
-		controller: 'LogoutController'
+		templateUrl: 'partials/documents.tpl.html',
+		controller: 'LogoutCtrl'
 	}).
 	when("/documents", {
-		templateUrl: 'partials/documents.html',
-		controller: 'DocumentController'
+		templateUrl: 'partials/documents.tpl.html',
+		controller: 'DocumentsCtrl'
 	}).
 	otherwise({
 		redirectTo: '/'
@@ -64,3 +63,24 @@ myModule.run(['$rootScope', '$http', function(scope, $http) {
 		window.location.href = welcomeUrl;
 	});
 }]);
+
+myModule.controller('LogoutCtrl', function LogoutCtrl($http, $scope) {
+	$http({
+		withCredentials: true,
+		method: 'GET',
+		url: 'http://roca.local:8080/centerdevice-roca/logout'
+	}).
+	success(function(data, status, headers, config) {
+		$scope.$broadcast('event:loginRequired');
+	});
+}).controller('SearchCtrl', function SearchCtrl($scope, $location) {
+	$scope.search = function() {
+		var searchQuery = {
+			q: $scope.keywords
+		}
+
+		if ($scope.keywords != undefined) {
+			$location.search(searchQuery);
+		}
+	}
+}).controller('MainCtrl', function MainCtrl() {});
