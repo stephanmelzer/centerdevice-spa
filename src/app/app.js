@@ -16,9 +16,6 @@ myModule.config(function($routeProvider, $locationProvider) {
 	when("/documents", {
 		templateUrl: 'partials/documents.tpl.html',
 		controller: 'DocumentsCtrl'
-	}).
-	otherwise({
-		redirectTo: '/'
 	});
 });
 
@@ -83,4 +80,21 @@ myModule.controller('LogoutCtrl', function LogoutCtrl($http, $scope) {
 			$location.search(searchQuery);
 		}
 	}
-}).controller('MainCtrl', function MainCtrl() {});
+}).controller('MainCtrl', function MainCtrl() {
+
+})
+	.controller('UserGroupsCtrl', function UserGroupsCtrl($http, $scope) {
+	$http({
+		withCredentials: true,
+		method: 'GET',
+		url: 'http://roca.local:8080/centerdevice-roca/user'
+	}).
+	success(function(data, status, headers, config) {
+		//remove the unnamed "all" group
+		var groups = data['group-data'];
+		groups = groups.splice(0, groups.length - 1);
+		data['group-data'] = groups;
+
+		$scope.user = data;
+	});
+});
