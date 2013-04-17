@@ -1,40 +1,25 @@
-  <!doctype html>
-  <html lang="en" ng-app="centerdevice">
-  <head>
-    <meta charset="utf-8">
-    <title>CenterDevice SPA prototype</title>
-    <link rel="stylesheet" href="assets/css/app.css">
-  </head>
-  <body ng-controller="MainCtrl">
+<!doctype html>
+<html lang="en" ng-app="centerdevice">
+<head>
+  <meta charset="utf-8">
+  <title>
+    CenterDevice SPA prototype
+  </title>
+  <link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body ng-controller="MainCtrl">
+  <div ng-include="'partials/header.tpl.html'"></div>
 
-  <div class="banner">
-  </div >
+  <div class="container-fluid">
+   <div class="row-fluid">
+    <div class = "span2 menuLeft" ng-include="'partials/menuLeft.tpl.html'"></div>
 
-  <header>
-        <a href="#/logout">Logout</a>
-    <h1>
-      centerdevice - structure without directories
-      <img src="assets/img/cd_logo.png" alt="centerdevice Logo">
-    </h1>
-
-    <form class="form-search" ng-controller="SearchCtrl">
-      <input type="search"
-      class="input-xlarge search-query"
-      placeholder="Enter search query"
-      autofocus
-      ng-model="keywords">
-      <button type="submit" class="btn btn-inverse" ng-click="search()">Search</button>
-    </form>
-  </header>
-
-  <div ng-include="'partials/menuRight.tpl.html'">
-    </div>
-
-    <div class="main" role="main">
+    <div class="span10" role="main">
       <div ng-view></div>
     </div>
-
-    <script src="assets/angular.js"></script>
-    <script src="centerdevice-spa.js"></script>
-  </body>
-  </html>
+  </div>
+</div>
+<script src="assets/angular.js"></script>
+<script src="centerdevice-spa.js"></script>
+</body>
+</html> 

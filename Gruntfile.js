@@ -81,6 +81,10 @@ module.exports = function(grunt) {
 		sass: {
 			files: ['<%= meta.allSassFiles %>'],
 			tasks: ['compass:dev']
+		},
+		html: {
+			files: ['src/**', '!src/assets'],
+			tasks: ['concat', 'copy'],
 		}
 	};
 
@@ -88,8 +92,7 @@ module.exports = function(grunt) {
 		dev: {
 			options: {
 				port: 8000,
-				base: '<%= distdir %>',
-				keepalive: true
+				base: '<%= distdir %>'
 			}
 		}
 	};
