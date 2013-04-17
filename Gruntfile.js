@@ -87,8 +87,9 @@ module.exports = function(grunt) {
 	gruntConfig.connect = {
 		dev: {
 			options: {
-				port: 8001,
-				base: '.'
+				port: 8000,
+				base: '<%= distdir %>',
+				keepalive: true
 			}
 		}
 	};
@@ -106,5 +107,5 @@ module.exports = function(grunt) {
 	// Register Grunt tasks
 	grunt.registerTask('default', ['clean', 'compass:dist', 'concat', 'copy']);
 	grunt.registerTask('run', ['clean', 'compass:dev', 'concat', 'copy', 'connect', 'watch']);
-	grunt.registerTask('build', ['compass:dev', 'concat', 'copy']);
+	grunt.registerTask('build', ['compass:dev', 'concat', 'copy', 'connect']);
 };
