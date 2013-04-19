@@ -1,18 +1,8 @@
 'use strict';
 
-angular.module('documents', [])
-    .controller('DocumentsCtrl', function DocumentsCtrl($scope, $http, $location) {
-    var searchQuery = $location.search();
-
-    $http({
-        withCredentials: true,
-        method: 'GET',
-        url: 'http://roca.local:8080/centerdevice-roca/documents',
-        params: searchQuery
-    }).
-    success(function(data, status, headers, config) {
-        $scope.documents = data.documents;
-    });
+angular.module('documents', ['centerdeviceService'])
+    .controller('DocumentsCtrl', function DocumentsCtrl(centerdeviceService, $scope) {
+    centerdeviceService.getDocuments($scope);
 })
     .filter('fileSize', function() {
     // taken from http://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable#

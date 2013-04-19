@@ -56,20 +56,13 @@ myModule.run(['$rootScope', '$http', function(scope, $http) {
 	 * On 'loginRequired' redirect to welcome page to login in again.
 	 */
 	scope.$on('event:loginRequired', function() {
-		var welcomeUrl = window.location.protocol + "//" + window.location.host + "/app/welcome.html";
+		var welcomeUrl = window.location.protocol + "//" + window.location.host + "/welcome.html";
 		window.location.href = welcomeUrl;
 	});
 }]);
 
-myModule.controller('LogoutCtrl', function LogoutCtrl($http, $scope) {
-	$http({
-		withCredentials: true,
-		method: 'GET',
-		url: 'http://roca.local:8080/centerdevice-roca/logout'
-	}).
-	success(function(data, status, headers, config) {
-		$scope.$broadcast('event:loginRequired');
-	});
+myModule.controller('LogoutCtrl', function LogoutCtrl($http, $rootScope, centerdeviceService) {
+	centerdeviceService.logout($rootScope);
 }).controller('SearchCtrl', function SearchCtrl($scope, $location) {
 	$scope.search = function() {
 		var searchQuery = {
@@ -83,18 +76,6 @@ myModule.controller('LogoutCtrl', function LogoutCtrl($http, $scope) {
 }).controller('MainCtrl', function MainCtrl() {
 
 })
-	.controller('UserGroupsCtrl', function UserGroupsCtrl($http, $scope) {
-	$http({
-		withCredentials: true,
-		method: 'GET',
-		url: 'http://roca.local:8080/centerdevice-roca/user'
-	}).
-	success(function(data, status, headers, config) {
-		//remove the unnamed "all" group
-		var groups = data['group-data'];
-		groups = groups.splice(0, groups.length - 1);
-		data['group-data'] = groups;
-
-		$scope.user = data;
-	});
+	.controller('UserGroupsCtrl', function UserGroupsCtrl($http, $scope, centerdeviceService) {
+	centerdeviceService.getUserInformation($scope);
 });
