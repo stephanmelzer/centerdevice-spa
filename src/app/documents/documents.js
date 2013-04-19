@@ -1,5 +1,3 @@
-'use strict';
-
 angular.module('documents', ['centerdeviceService'])
     .controller('DocumentsCtrl', function DocumentsCtrl(centerdeviceService, $scope) {
     centerdeviceService.getDocuments($scope);

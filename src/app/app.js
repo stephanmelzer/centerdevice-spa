@@ -1,8 +1,6 @@
-'use strict';
-
 var myModule = angular.module('centerdevice', ['documents']);
 
-myModule.config(function($routeProvider, $locationProvider) {
+myModule.config(function($routeProvider) {
 	//$locationProvider.html5Mode(true);
 
 	$routeProvider.
@@ -31,7 +29,7 @@ myModule.config(function($httpProvider) {
 		function error(response) {
 			var status = response.status;
 
-			if (status == 401) {
+			if (status === 401) {
 				var deferred = $q.defer();
 				scope.$broadcast('event:loginRequired');
 
@@ -44,13 +42,13 @@ myModule.config(function($httpProvider) {
 
 		return function(promise) {
 			return promise.then(success, error);
-		}
+		};
 	}];
 
 	$httpProvider.responseInterceptors.push(interceptor);
 });
 
-myModule.run(['$rootScope', '$http', function(scope, $http) {
+myModule.run(['$rootScope', function(scope) {
 
 	/**
 	 * On 'loginRequired' redirect to welcome page to login in again.
@@ -67,12 +65,12 @@ myModule.controller('LogoutCtrl', function LogoutCtrl($http, $rootScope, centerd
 	$scope.search = function() {
 		var searchQuery = {
 			q: $scope.keywords
-		}
+		};
 
-		if ($scope.keywords != undefined) {
+		if ($scope.keywords !== undefined) {
 			$location.search(searchQuery);
 		}
-	}
+	};
 }).controller('MainCtrl', function MainCtrl() {
 
 })

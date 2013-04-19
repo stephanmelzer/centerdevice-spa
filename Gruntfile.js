@@ -97,6 +97,30 @@ module.exports = function(grunt) {
 		}
 	};
 
+	gruntConfig.jshint = {
+		options: {
+			curly: true,
+			eqeqeq: true,
+			immed: true,
+			latedef: true,
+			newcap: true,
+			noarg: true,
+			sub: true,
+			undef: true,
+			boss: true,
+			eqnull: true,
+			unused: true,
+			browser: true,
+			strict: false,
+			jquery: true,
+			globals: {
+				angular: true,
+			}
+		},
+		beforeconcat: ['src/**/*.js', '!src/assets/*'],
+		afterconcat: ['dist/centerdevice-spa.js']
+	};
+
 	grunt.initConfig(gruntConfig);
 
 	// Loading Grunt plugins
@@ -106,9 +130,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-compass');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
+	grunt.loadNpmTasks('grunt-contrib-jshint');
 
 	// Register Grunt tasks
 	grunt.registerTask('default', ['clean', 'compass:dist', 'concat', 'copy']);
-	grunt.registerTask('run', ['clean', 'compass:dev', 'concat', 'copy', 'connect', 'watch']);
-	grunt.registerTask('build', ['compass:dev', 'concat', 'copy', 'connect']);
+	grunt.registerTask('run', ['clean', 'compass:dev', 'concat', 'copy', 'jshint', 'connect', 'watch']);
+	grunt.registerTask('build', ['compass:dev', 'concat', 'copy']);
 };
