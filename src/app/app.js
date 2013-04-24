@@ -76,4 +76,21 @@ myModule.controller('LogoutCtrl', function LogoutCtrl($http, $rootScope, centerd
 })
 	.controller('UserGroupsCtrl', function UserGroupsCtrl($http, $scope, centerdeviceService) {
 	centerdeviceService.getUserInformation($scope);
+
+}).controller('MobileDeviceCtrl', function MobileDeviceCtrl($scope) {
+	var mobilePlatforms = {
+		"Android": "https://play.google.com/store/apps",
+		"iPhone": "http://itunes.com/apps/CenterDevice",
+		"iPad": "http://itunes.com/apps/CenterDevice",
+		"Windows Phone": "http://www.windowsphone.com/en-us/store/overview"
+	};
+
+	var userAgent = navigator.userAgent.toLowerCase();
+
+	for (var platform in mobilePlatforms) {
+		if (userAgent.indexOf(platform.toLowerCase()) !== -1) {
+			$scope.isMobildeDevice = true;
+			$scope.appStoreLink = mobilePlatforms[platform];
+		}
+	}
 });
