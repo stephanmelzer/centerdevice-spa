@@ -25,7 +25,7 @@ module.exports = function(grunt) {
 	};
 
 	gruntConfig.copy = {
-		html: {
+		dist: {
 			files: [{
 				expand: true,
 				cwd: 'src/',
@@ -37,18 +37,36 @@ module.exports = function(grunt) {
 				cwd: 'src/',
 				src: ['**/*.tpl.html'],
 				dest: '<%= distdir %>/partials'
+			}, {
+				expand: true,
+				cwd: 'src/assets/css',
+				src: ['app.css'],
+				dest: '<%= distdir %>/assets/css'
+			}, {
+				expand: true,
+				cwd: 'src/assets/img',
+				src: ['**/*'],
+				dest: '<%= distdir %>/assets/img'
 			}]
 		},
-		css: {
+		dev: {
 			files: [{
+				expand: true,
+				cwd: 'src/',
+				src: ['*.html'],
+				dest: '<%= distdir %>'
+			}, {
+				expand: true,
+				flatten: true,
+				cwd: 'src/',
+				src: ['**/*.tpl.html'],
+				dest: '<%= distdir %>/partials'
+			}, {
 				expand: true,
 				cwd: 'src/assets/css',
 				src: ['**/*.css'],
 				dest: '<%= distdir %>/assets/css'
-			}]
-		},
-		img: {
-			files: [{
+			}, {
 				expand: true,
 				cwd: 'src/assets/img',
 				src: ['**/*'],
@@ -142,7 +160,8 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	// Register Grunt tasks
-	grunt.registerTask('default', ['clean', 'compass:dist', 'concat:dist', 'uglify', 'copy']);
-	grunt.registerTask('run', ['clean', 'compass:dev', 'jshint', 'concat:dev', 'copy', 'connect', 'watch']);
+	grunt.registerTask('default', ['clean', 'compass:dist', 'concat:dist', 'uglify', 'copy:dist']);
+	grunt.registerTask('runDev', ['clean', 'compass:dev', 'jshint', 'concat:dev', 'copy:dev', 'connect', 'watch']);
+	grunt.registerTask('run', ['default', 'connect', 'watch']);
 	grunt.registerTask('build', ['compass:dev', 'concat:dev', 'copy']);
 };
