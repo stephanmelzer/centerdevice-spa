@@ -1,6 +1,6 @@
 var myModule = angular.module('centerdevice', ['documents']);
 
-myModule.config(function($routeProvider) {
+myModule.config(['$routeProvider', function($routeProvider) {
 	//$locationProvider.html5Mode(true);
 
 	$routeProvider.
@@ -15,11 +15,11 @@ myModule.config(function($routeProvider) {
 		templateUrl: 'partials/documents.tpl.html',
 		controller: 'DocumentsCtrl'
 	});
-});
+}]);
 
 // define 401 interceptor
 // taken from: http://www.espeo.pl/2012/02/26/authentication-in-angularjs-application
-myModule.config(function($httpProvider) {
+myModule.config(['$httpProvider', function($httpProvider) {
 	var interceptor = ['$rootScope', '$q', function(scope, $q) {
 
 		function success(response) {
@@ -46,7 +46,7 @@ myModule.config(function($httpProvider) {
 	}];
 
 	$httpProvider.responseInterceptors.push(interceptor);
-});
+}]);
 
 myModule.run(['$rootScope', function(scope) {
 
@@ -59,9 +59,9 @@ myModule.run(['$rootScope', function(scope) {
 	});
 }]);
 
-myModule.controller('LogoutCtrl', function LogoutCtrl($http, $rootScope, centerdeviceService) {
+myModule.controller('LogoutCtrl', ['$http', '$rootScope', 'centerdeviceService', function LogoutCtrl($http, $rootScope, centerdeviceService) {
 	centerdeviceService.logout($rootScope);
-}).controller('SearchCtrl', function SearchCtrl($scope, $location) {
+}]).controller('SearchCtrl', ['$scope', '$location', function SearchCtrl($scope, $location) {
 	$scope.search = function() {
 		var searchQuery = {
 			q: $scope.keywords
@@ -71,13 +71,13 @@ myModule.controller('LogoutCtrl', function LogoutCtrl($http, $rootScope, centerd
 			$location.search(searchQuery);
 		}
 	};
-}).controller('MainCtrl', function MainCtrl() {
+}]).controller('MainCtrl', function MainCtrl() {
 
 })
-	.controller('UserGroupsCtrl', function UserGroupsCtrl($http, $scope, centerdeviceService) {
+	.controller('UserGroupsCtrl', ['$http', '$scope', 'centerdeviceService', function UserGroupsCtrl($http, $scope, centerdeviceService) {
 	centerdeviceService.getUserInformation($scope);
 
-}).controller('MobileDeviceCtrl', function MobileDeviceCtrl($scope) {
+}]).controller('MobileDeviceCtrl', ['$scope', function MobileDeviceCtrl($scope) {
 	var mobilePlatforms = {
 		"Android": "https://play.google.com/store/apps",
 		"iPhone": "http://itunes.com/apps/CenterDevice",
@@ -93,4 +93,4 @@ myModule.controller('LogoutCtrl', function LogoutCtrl($http, $rootScope, centerd
 			$scope.appStoreLink = mobilePlatforms[platform];
 		}
 	}
-});
+}]);

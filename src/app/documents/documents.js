@@ -1,7 +1,7 @@
 angular.module('documents', ['centerdeviceService'])
-    .controller('DocumentsCtrl', function DocumentsCtrl(centerdeviceService, $scope) {
+    .controller('DocumentsCtrl', ['centerdeviceService', '$scope', function DocumentsCtrl(centerdeviceService, $scope) {
     centerdeviceService.getDocuments($scope);
-})
+}])
     .filter('fileSize', function() {
     // taken from http://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable#
     var fileSizeFilter = function(fileSizeInBytes) {

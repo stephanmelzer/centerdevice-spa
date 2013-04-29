@@ -14,13 +14,13 @@ module.exports = function(grunt) {
 	gruntConfig.pkg = grunt.file.readJSON('package.json');
 
 	gruntConfig.concat = {
-		dist: {
-			src: ['src/**/*.js', '!src/**/*.spec.js', '!src/assets/**'],
+		dev: {
+			src: ['vendor/angular/angular.js', 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**'],
 			dest: '<%= distdir %>/centerdevice-spa.js'
 		},
-		libs: {
-			src: 'vendor/angular/angular.js',
-			dest: '<%= distdir %>/assets/angular.js'
+		dist: {
+			src: ['vendor/angular/angular.js', 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**'],
+			dest: 'tmp/centerdevice-spa.js'
 		}
 	};
 
@@ -75,7 +75,7 @@ module.exports = function(grunt) {
 		}
 	};
 
-	gruntConfig.clean = ['<%= distdir %>', '<%= meta.cssDir %>'];
+	gruntConfig.clean = ['<%= distdir %>', '<%= meta.cssDir %>', 'tmp'];
 
 	gruntConfig.watch = {
 		sass: {
@@ -121,6 +121,14 @@ module.exports = function(grunt) {
 		afterconcat: ['dist/centerdevice-spa.js']
 	};
 
+	gruntConfig.uglify = {
+		dist: {
+			files: {
+				'<%= distdir %>/centerdevice-spa.min.js': ['tmp/centerdevice-spa.js']
+			}
+		}
+	};
+
 	grunt.initConfig(gruntConfig);
 
 	// Loading Grunt plugins
@@ -131,9 +139,10 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
 
 	// Register Grunt tasks
-	grunt.registerTask('default', ['clean', 'compass:dist', 'concat', 'copy']);
-	grunt.registerTask('run', ['clean', 'compass:dev', 'concat', 'copy', 'jshint', 'connect', 'watch']);
-	grunt.registerTask('build', ['compass:dev', 'concat', 'copy']);
+	grunt.registerTask('default', ['clean', 'compass:dist', 'concat:dist', 'uglify', 'copy']);
+	grunt.registerTask('run', ['clean', 'compass:dev', 'jshint', 'concat:dev', 'copy', 'connect', 'watch']);
+	grunt.registerTask('build', ['compass:dev', 'concat:dev', 'copy']);
 };
