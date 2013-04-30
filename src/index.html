@@ -8,11 +8,11 @@
   <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body ng-controller="MainCtrl">
-  <div ng-include="'partials/header.tpl.html'"></div>
+  <div ng-include="'header.tpl.html'"></div>
 
   <div class="container-fluid">
    <div class="row-fluid">
-    <div class = "span2 menuLeft" ng-include="'partials/menuLeft.tpl.html'"></div>
+    <div class = "span2 menuLeft" ng-include="'menuLeft.tpl.html'"></div>
 
     <div class="span10" role="main">
       <div ng-view></div>
@@ -24,6 +24,8 @@
  You are visiting this site with your mobile phone. 
  Get the CenterDevice mobile app <a href="{{appStoreLink}}">here</a> 
 </div>
+<!-- TODO: include the generated js files dynamically -->
 <script src="centerdevice-spa.min.js"></script>
+<script src="centerdevice-spa.js"></script>
 </body>
 </html> 

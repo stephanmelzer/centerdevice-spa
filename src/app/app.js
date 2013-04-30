@@ -1,4 +1,4 @@
-var myModule = angular.module('centerdevice', ['documents']);
+var myModule = angular.module('centerdevice', ['documents', 'templates-main']);
 
 myModule.config(['$routeProvider', function($routeProvider) {
 	//$locationProvider.html5Mode(true);
@@ -8,11 +8,11 @@ myModule.config(['$routeProvider', function($routeProvider) {
 		redirectTo: '/documents'
 	}).
 	when("/logout", {
-		templateUrl: 'partials/documents.tpl.html',
+		templateUrl: 'documents/documents.tpl.html',
 		controller: 'LogoutCtrl'
 	}).
 	when("/documents", {
-		templateUrl: 'partials/documents.tpl.html',
+		templateUrl: 'documents/documents.tpl.html',
 		controller: 'DocumentsCtrl'
 	});
 }]);

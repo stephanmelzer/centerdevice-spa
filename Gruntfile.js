@@ -15,11 +15,11 @@ module.exports = function(grunt) {
 
 	gruntConfig.concat = {
 		dev: {
-			src: ['vendor/angular/angular.js', 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**'],
+			src: ['vendor/angular/angular.js', 'tmp/templates.js', 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**'],
 			dest: '<%= distdir %>/centerdevice-spa.js'
 		},
 		dist: {
-			src: ['vendor/angular/angular.js', 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**'],
+			src: ['vendor/angular/angular.js', 'tmp/templates.js', 'src/**/*.js', '!src/**/*.spec.js', '!src/assets/**'],
 			dest: 'tmp/centerdevice-spa.js'
 		}
 	};
@@ -31,12 +31,6 @@ module.exports = function(grunt) {
 				cwd: 'src/',
 				src: ['*.html'],
 				dest: '<%= distdir %>'
-			}, {
-				expand: true,
-				flatten: true,
-				cwd: 'src/',
-				src: ['**/*.tpl.html'],
-				dest: '<%= distdir %>/partials'
 			}, {
 				expand: true,
 				cwd: 'src/assets/css',
@@ -55,12 +49,6 @@ module.exports = function(grunt) {
 				cwd: 'src/',
 				src: ['*.html'],
 				dest: '<%= distdir %>'
-			}, {
-				expand: true,
-				flatten: true,
-				cwd: 'src/',
-				src: ['**/*.tpl.html'],
-				dest: '<%= distdir %>/partials'
 			}, {
 				expand: true,
 				cwd: 'src/assets/css',
@@ -147,6 +135,16 @@ module.exports = function(grunt) {
 		}
 	};
 
+	gruntConfig.html2js = {
+		options: {
+			base: 'src/app'
+		},
+		main: {
+			src: ['src/**/*.tpl.html'],
+			dest: 'tmp/templates.js'
+		}
+	};
+
 	grunt.initConfig(gruntConfig);
 
 	// Loading Grunt plugins
@@ -158,10 +156,11 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-html2js');
 
 	// Register Grunt tasks
-	grunt.registerTask('default', ['clean', 'compass:dist', 'concat:dist', 'uglify', 'copy:dist']);
-	grunt.registerTask('runDev', ['clean', 'compass:dev', 'jshint', 'concat:dev', 'copy:dev', 'connect', 'watch']);
+	grunt.registerTask('default', ['clean', 'compass:dist', 'html2js', 'concat:dist', 'uglify', 'copy:dist']);
+	grunt.registerTask('runDev', ['clean', 'compass:dev', 'html2js', 'jshint', 'concat:dev', 'copy:dev', 'connect', 'watch']);
 	grunt.registerTask('run', ['default', 'connect', 'watch']);
 	grunt.registerTask('build', ['compass:dev', 'concat:dev', 'copy']);
 	grunt.registerTask('heroku', ['default']);
