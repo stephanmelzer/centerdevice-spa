@@ -1,5 +1,5 @@
-angular.module('centerdeviceService', [])
-	.factory('centerdeviceService', ['$http', '$location', function($http, $location) {
+angular.module('centerdeviceService', ['configurationService'])
+	.factory('centerdeviceService', ['$http', '$location', 'configurationService', function($http, $location, config) {
 	var centerdevice = {
 		getDocuments: function(scope) {
 			var searchQuery = $location.search();
@@ -7,7 +7,7 @@ angular.module('centerdeviceService', [])
 			$http({
 				withCredentials: true,
 				method: 'GET',
-				url: 'http://roca.local:8080/centerdevice-roca/documents',
+				url: config.baseServiceUrl + '/documents',
 				params: searchQuery
 			}).
 			success(function(data) {
@@ -18,7 +18,7 @@ angular.module('centerdeviceService', [])
 			$http({
 				withCredentials: true,
 				method: 'GET',
-				url: 'http://roca.local:8080/centerdevice-roca/user'
+				url: config.baseServiceUrl + '/user'
 			}).
 			success(function(data) {
 				//remove the unnamed "all" group
@@ -33,7 +33,7 @@ angular.module('centerdeviceService', [])
 			$http({
 				withCredentials: true,
 				method: 'GET',
-				url: 'http://roca.local:8080/centerdevice-roca/logout'
+				url: config.baseServiceUrl + '/logout'
 			}).
 			success(function() {
 				scope.$broadcast('event:loginRequired');
