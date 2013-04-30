@@ -164,4 +164,6 @@ module.exports = function(grunt) {
 	grunt.registerTask('runDev', ['clean', 'compass:dev', 'jshint', 'concat:dev', 'copy:dev', 'connect', 'watch']);
 	grunt.registerTask('run', ['default', 'connect', 'watch']);
 	grunt.registerTask('build', ['compass:dev', 'concat:dev', 'copy']);
+	grunt.registerTask('heroku', ['default']);
+
 };
