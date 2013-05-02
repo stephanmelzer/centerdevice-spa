@@ -1,4 +1,4 @@
-var myModule = angular.module('centerdevice', ['documents', 'templates-main']);
+var myModule = angular.module('centerdevice', ['documents', 'templates-main', 'configurationService']);
 
 myModule.config(['$routeProvider', function($routeProvider) {
 	//$locationProvider.html5Mode(true);
@@ -61,6 +61,7 @@ myModule.run(['$rootScope', function(scope) {
 
 myModule.controller('LogoutCtrl', ['$http', '$rootScope', 'centerdeviceService', function LogoutCtrl($http, $rootScope, centerdeviceService) {
 	centerdeviceService.logout($rootScope);
+
 }]).controller('SearchCtrl', ['$scope', '$location', function SearchCtrl($scope, $location) {
 	$scope.search = function() {
 		var searchQuery = {
@@ -71,9 +72,11 @@ myModule.controller('LogoutCtrl', ['$http', '$rootScope', 'centerdeviceService',
 			$location.search(searchQuery);
 		}
 	};
-}]).controller('MainCtrl', function MainCtrl() {
+}]).controller('MainCtrl', ['$scope', 'configurationService', function MainCtrl($scope, configurationService) {
+	$scope.baseServiceUrl = configurationService.baseServiceUrl;
+	$scope.currentBaseUrl = window.location.protocol + "//" + window.location.host;
 
-})
+}])
 	.controller('UserGroupsCtrl', ['$http', '$scope', 'centerdeviceService', function UserGroupsCtrl($http, $scope, centerdeviceService) {
 	centerdeviceService.getUserInformation($scope);
 

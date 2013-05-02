@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="centerdevice">
 <head>
 	<meta charset="utf-8">
 	<title>CenterDevice SPA prototype</title>
 	<link rel="stylesheet" href="assets/css/app.css">
 </head>
-<body>
+<body ng-controller="MainCtrl">
 
 	<div class="welcome" role="main">
 		<h1>
@@ -21,13 +21,12 @@
 			information about your login credentials as you will be redirected to
 			centerdevice for authentication purposes.
 		</p>
+		<a href="{{baseServiceUrl}}/login?redirect={{currentBaseUrl}}/index.html" class="btn btn-primary btn-block">Login</a>
 
-		<a href="http://centerdevice-roca.herokuapp.com/login?redirect=http://centerdevice-spa.herokuapp.com/index.html" class="btn btn-primary btn-block">Login</a>
-
-<!--
-	TODO: generate link from current config (base url)
- 		<a href="http://roca.local:8080/centerdevice-roca/login?redirect=http://spa.local:8000/index.html" class="btn btn-primary btn-block">Login</a>
- 	-->	
- </div>
+		<!-- TODO: include the generated js files dynamically -->
+		<script src="centerdevice-spa.min.js"></script>
+		<script src="centerdevice-spa.js"></script>
+	</body>
+</div>
 </body>
 </html>
