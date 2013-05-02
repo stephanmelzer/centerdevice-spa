@@ -10,7 +10,7 @@ node_js:
 before_script:
 - npm install -g grunt-cli
 - gem install compass
-script: grunt
+script: grunt build
 after_success:
 - wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 - echo "Host heroku.com" >> ~/.ssh/config

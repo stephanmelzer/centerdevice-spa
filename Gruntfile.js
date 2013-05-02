@@ -123,7 +123,7 @@ module.exports = function(grunt) {
 				angular: true,
 			}
 		},
-		beforeconcat: ['src/**/*.js', '!src/assets/*'],
+		beforeconcat: ['src/**/*.js', '!src/**/*.spec.js','!src/assets/*'],
 		afterconcat: ['dist/centerdevice-spa.js']
 	};
 
@@ -145,6 +145,12 @@ module.exports = function(grunt) {
 		}
 	};
 
+	gruntConfig.karma = {
+		unit: {
+			configFile: 'karma/karma.conf.js'
+		}
+	};
+
 	grunt.initConfig(gruntConfig);
 
 	// Loading Grunt plugins
@@ -157,12 +163,13 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
 	grunt.loadNpmTasks('grunt-html2js');
+	grunt.loadNpmTasks('grunt-karma');
 
 	// Register Grunt tasks
 	grunt.registerTask('default', ['clean', 'compass:dist', 'html2js', 'concat:dist', 'uglify', 'copy:dist']);
 	grunt.registerTask('runDev', ['clean', 'compass:dev', 'html2js', 'jshint', 'concat:dev', 'copy:dev', 'connect', 'watch']);
 	grunt.registerTask('run', ['default', 'connect', 'watch']);
-	grunt.registerTask('build', ['compass:dev', 'concat:dev', 'copy']);
+	grunt.registerTask('build', ['clean', 'karma', 'compass:dev', 'html2js', 'jshint', 'concat:dev', 'copy:dev']);
 	grunt.registerTask('heroku', ['default']);
 
 };
