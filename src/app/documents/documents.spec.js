@@ -3,7 +3,7 @@ describe("Unit: Testing Filters", function() {
 	
 	beforeEach(angular.module('documents'));
 
-	it("should have a file size filter",inject(function($filter){
-		expect($filter);
-	}));
+	// it("should have a file size filter",inject(function($filter){
+	// 	expect($filter);
+	// }));
 });
