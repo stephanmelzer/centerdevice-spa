@@ -1,5 +1,8 @@
 <!-- TODO: why is the class named movie-overview? -->
 <section class="movie-overview" ng-controller="DocumentsCtrl">
+
+	<img class="spinner" src="assets/img/ajax-loader.gif" ng-show="loading">
+
 	<ul>
 		<li ng-repeat="document in documents">
 			<img src="assets/img/spaltentyp_icon_documents.png"

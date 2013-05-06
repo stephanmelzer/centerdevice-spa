@@ -12,11 +12,13 @@ files = [
   MOCHA_ADAPTER,
 
   // AngularJs files
-  'vendor/**/*.js',
+  'vendor/angular/angular.js',
+  'vendor/angular/angular-mocks.js',
   'node_modules/chai/chai.js',
   'node_modules/expect.js/expect.js',
 
-  'src/**/*.js'
+  'src/**/*.js',
+  
 ];
 
 

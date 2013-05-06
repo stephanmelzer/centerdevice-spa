@@ -1,5 +1,6 @@
 <div ng-controller="UserGroupsCtrl">
-	<a href="#/documents">{{user.name}}</a>
+	<img class="spinner" src="assets/img/ajax-loader.gif" ng-show="loading">
+	<a href="#/documents" ng-hide="loading">{{user.name}}</a>
 	<div ng-repeat="group in user['group-data']">
 		<a class = "group" ng-href="#/documents?groups={{group.id}}">{{group.name}}</a>
 		<br/>

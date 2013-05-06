@@ -60,7 +60,11 @@ myModule.run(['$rootScope', function(scope) {
 }]);
 
 myModule.controller('LogoutCtrl', ['$http', '$rootScope', 'centerdeviceService', function LogoutCtrl($http, $rootScope, centerdeviceService) {
-	centerdeviceService.logout($rootScope);
+	var q = centerdeviceService.logout();
+
+	q.success(function() {
+		$rootScope.$broadcast('event:loginRequired');
+	});
 
 }]).controller('SearchCtrl', ['$scope', '$location', function SearchCtrl($scope, $location) {
 	$scope.search = function() {
@@ -78,7 +82,18 @@ myModule.controller('LogoutCtrl', ['$http', '$rootScope', 'centerdeviceService',
 
 }])
 	.controller('UserGroupsCtrl', ['$http', '$scope', 'centerdeviceService', function UserGroupsCtrl($http, $scope, centerdeviceService) {
-	centerdeviceService.getUserInformation($scope);
+	$scope.loading = true;
+	var q = centerdeviceService.getUserInformation();
+
+	q.success(function(data) {
+		//remove the unnamed "all" group
+		var groups = data['group-data'];
+		groups = groups.splice(0, groups.length - 1);
+		data['group-data'] = groups;
+
+		$scope.user = data;
+		$scope.loading = false;
+	});
 
 }]).controller('MobileDeviceCtrl', ['$scope', function MobileDeviceCtrl($scope) {
 	var mobilePlatforms = {
