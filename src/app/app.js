@@ -86,11 +86,27 @@ myModule.controller('LogoutCtrl', ['$http', '$rootScope', 'centerdeviceService',
 	var q = centerdeviceService.getUserInformation();
 
 	q.success(function(data) {
-		//remove the unnamed "all" group
 		var groups = data['group-data'];
-		groups = groups.splice(0, groups.length - 1);
-		data['group-data'] = groups;
+		var groupsWithoutGlobalGroup = [];
+		var globalGroup;
 
+		for (var i = 0; i < groups.length; i++) {
+			if (groups[i].id.indexOf("ALL_USERS") > -1) {
+				globalGroup = groups[i];
+				globalGroup.name = "Alle";
+				continue;
+			}
+
+			groupsWithoutGlobalGroup.push(groups[i]);
+		}
+
+		groupsWithoutGlobalGroup.sort(function(a, b) {
+			return a.name > b.name;
+		});
+
+		data['group-data'] = groupsWithoutGlobalGroup;
+
+		$scope.globalGroup = globalGroup;
 		$scope.user = data;
 		$scope.loading = false;
 	});
