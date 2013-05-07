@@ -121,6 +121,7 @@ module.exports = function(grunt) {
 			jquery: true,
 			globals: {
 				angular: true,
+				alert: true
 			}
 		},
 		beforeconcat: ['src/**/*.js', '!src/**/*.spec.js','!src/assets/*'],

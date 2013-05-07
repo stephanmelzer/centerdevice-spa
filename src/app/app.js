@@ -127,4 +127,15 @@ myModule.controller('LogoutCtrl', ['$http', '$rootScope', 'centerdeviceService',
 			$scope.appStoreLink = mobilePlatforms[platform];
 		}
 	}
+}]).controller('FileUploadCtrl', ['$scope', function FileUploadCtrl($scope) {
+	$scope.currentUrl = window.location.protocol + "//" + window.location.host;
+
+	document.getElementById('fileSelector').addEventListener('change', function(event) {
+		if (event.target.value.length > 0) {
+			document.getElementById('uploadButton').click();
+		}
+	});
+	$scope.selectFile = function() {
+		document.getElementById("fileSelector").click();
+	};
 }]);

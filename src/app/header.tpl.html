@@ -1,13 +1,7 @@
-<div class="banner">
-</div >
-
 <header>
   <a href="#/logout">Logout</a>
 
-  <h1>
-    centerdevice - structure without directories
-    <img src="assets/img/cd_logo.png" alt="centerdevice Logo">
-  </h1>
+  <img src="assets/img/cd_logo.png" alt="centerdevice Logo">
 
   <form class="form-search" ng-controller="SearchCtrl">
     <input type="search"
@@ -18,8 +12,12 @@
     <button type="submit" class="btn btn-inverse" ng-click="search()">Search</button>
   </form>
 
-  <form action="{{baseServiceUrl}}/documents/json" method="POST" enctype="multipart/form-data">
-    <input type="file" name="document">
-    <button type="submit" class="btn btn-inverse">Upload File</button>
+  <form class="form-upload" action="{{baseServiceUrl}}/documents/json?redirect={{currentUrl}}" method="POST" enctype="multipart/form-data" ng-controller="FileUploadCtrl">
+    <button type="button" class="btn btn-inverse" ng-click="selectFile()">Upload File</button>
+
+    <div class="hidden">
+      <input id="fileSelector" type="file" name="document">
+      <button id="uploadButton" type="submit" class="btn btn-inverse">Upload File old</button>
+    </div>
   </form>
 </header>

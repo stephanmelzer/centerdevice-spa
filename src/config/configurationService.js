@@ -3,7 +3,7 @@ angular.module('configurationService', [])
 
 	var config = {
 		baseServiceUrl: "http://centerdevice-roca.herokuapp.com"
-		// baseServiceUrl: "http://localhost:8080/centerdevice-roca"
+		// baseServiceUrl: "http://roca.local:8080/centerdevice-roca"
 	};
 
 	return config;
