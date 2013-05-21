@@ -86,11 +86,11 @@ module.exports = function(grunt) {
 	gruntConfig.watch = {
 		sass: {
 			files: ['<%= meta.allSassFiles %>'],
-			tasks: ['compass:dev']
+			tasks: ['compass:dev', 'copy:dev']
 		},
 		html: {
 			files: ['src/**', '!src/assets'],
-			tasks: ['concat', 'copy'],
+			tasks: ['html2js', 'concat:dev', 'copy:dev'],
 		}
 	};
 
@@ -124,7 +124,7 @@ module.exports = function(grunt) {
 				alert: true
 			}
 		},
-		beforeconcat: ['src/**/*.js', '!src/**/*.spec.js','!src/assets/*'],
+		beforeconcat: ['src/**/*.js', '!src/**/*.spec.js', '!src/assets/*'],
 		afterconcat: ['dist/centerdevice-spa.js']
 	};
 
